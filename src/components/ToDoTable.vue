@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <ModalEdit :items="getItem"/>
+    <ModalEdit :items="editItem" @updateLine="(item) => updateDatatable(item)" />
     <div class="col-md-12 col-xxl-12">
       <table class="table bg-light">
         <thead>
@@ -13,11 +13,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(listItem, index) in list" :key="index">
+          <tr v-for="(listItem, index) in listTask" :key="index">
             <td class="text-center align-middle">{{ listItem.title }}</td>
             <td class="text-center align-middle">{{ listItem.desc }}</td>
             <td class="text-center align-middle">
-              <button type="button" class="btn btn-info rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="getIndex(listItem)">
+              <button type="button" class="btn btn-info rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="getItem(listItem)">
                 <i class="bi bi-pencil"></i>
                 <span class="d-none d-sm-inline-block">Edit</span>  
               </button>
@@ -56,12 +56,26 @@ export default {
   components:{
       ModalEdit: () => import("../components/common/ModalEdit.vue")
   },
+  data: function(){
+    return {
+      editItem: null,
+      editItemIndex: 0,
+      listTask: this.list
+    };
+  },
   methods:{
     deleteTask(indexValue){
       this.$emit('deleteLine', indexValue )
     },
      getItem: function(item){
-      return item
+       this.editItem = item;
+       this.editItemIndex = this.listTask?.indexOf(item);
+    },
+    updateDatatable: function(item){
+      console.log(item)
+			this.listTask[this.editItemIndex].title = item.title;
+      console.log(item.title)
+      this.listTask[this.editItemIndex].desc = item.desc;
     },
   }
 };

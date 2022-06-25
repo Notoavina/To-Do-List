@@ -24,7 +24,7 @@
             id="titleEdit"
             class="form-control border-1 rounded-0 col-xxl-12"
             placeholder="Please enter the title of the task here"
-            v-model="newtitleValue"
+            v-model="titleValue"
           />
           <label for="descEdit">Description:</label>
           <textarea
@@ -33,7 +33,7 @@
             id="desc"
             placeholder="Please enter the description of the task here"
             required
-            v-model="newDescValue"
+            v-model="descValue"
           ></textarea>
         </div>
         <div class="modal-footer">
@@ -44,7 +44,7 @@
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary" @click="sendValue()">Save changes</button>
+          <button type="button" class="btn btn-primary" @click="sendValue()"  data-bs-dismiss="modal">Save changes</button>
         </div>
       </div>
     </form>
@@ -56,21 +56,28 @@ export default
 {
   name: "ModalEdit",
   props: {
-    items: Object
+    items: {},
   },
   data: function () {
     return {
-      isOpen: false,
-      newtitleValue: this.titleValue,
-      newDescValue: this.descValue,
+      titleValue: this.items?.title,
+      descValue: this.items?.desc
     };
   },
   methods:{
     sendValue(){
-        this.isOpen = false;
+      this.$emit('updateLine',{
+        title: this.titleValue,
+        desc: this.descValue
+      });
     }
+  },
+   watch: {
+    items(newItem) {
+        this.titleValue = newItem?.title
+        this.descValue = newItem?.desc
   }
-};
+}}
 </script>
 <style scoped>
 </style>
