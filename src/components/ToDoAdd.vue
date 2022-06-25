@@ -3,7 +3,10 @@
     <PageTitle label="To do List"></PageTitle>
     <form class="col-md-12 col-xxl-12 mb-3 w-100">
       <div>
-        <div class="h5 mb-3 text-danger p-0">Number of non completed task: <span class="text-warning"> {{undone}}</span></div>
+        <div class="h5 mb-3 text-danger p-0">
+          Number of non completed task:
+          <span class="text-warning"> {{ undone }}</span>
+        </div>
         <div class="mb-2 p-0">
           <label for="title " class="mb-1">Title:</label>
           <input
@@ -27,7 +30,18 @@
             v-model="descValue"
           ></textarea>
         </div>
-        <button class="btn btn-add rounded-0 d-inline-flex align-items-center justify-content-center w-100" type="submit" @click.prevent="updateList()">
+        <button
+          class="
+            btn btn-add
+            rounded-0
+            d-inline-flex
+            align-items-center
+            justify-content-center
+            w-100
+          "
+          type="submit"
+          @click.prevent="updateList()"
+        >
           <i class="bi bi-plus-circle me-2"></i>
           Add Task
         </button>
@@ -39,26 +53,30 @@
 <script>
 export default {
   name: "TodoAdd",
-  props:{
-    undone: Number
+  props: {
+    undone: Number,
   },
   components: { PageTitle: () => import("./common/PageTitle.vue") },
-   data: function () {
+  data: function () {
     return {
-        titleValue:null, 
-        descValue:null,
-        status: false
-    }
+      titleValue: null,
+      descValue: null,
+      status: false
+    };
   },
-  methods:{
-    updateList(){
-        if(this.titleValue != null && this.descValue != null){
-            this.$emit('updateList', {title:this.titleValue, desc:this.descValue, status: this.status})
-            this.titleValue =""
-            this.descValue=""
-        }
-    }
-  }
+  methods: {
+    updateList() {
+      if (this.titleValue != null && this.descValue != null) {
+        this.$emit("updateList", {
+          title: this.titleValue,
+          desc: this.descValue,
+          status: this.status,
+        });
+        this.titleValue = "";
+        this.descValue = "";
+      }
+    },
+  },
 };
 </script>
 <style scoped>

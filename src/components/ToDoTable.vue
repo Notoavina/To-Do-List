@@ -1,6 +1,9 @@
 <template>
   <div class="row">
-    <ModalEdit :items="editItem" @updateLine="(item) => updateDatatable(item)" />
+    <ModalEdit
+      :items="editItem"
+      @updateLine="(item) => updateDatatable(item)"
+    />
     <div class="col-md-12 col-xxl-12">
       <table class="table bg-light">
         <thead>
@@ -17,27 +20,47 @@
             <td class="text-center align-middle">{{ listItem.title }}</td>
             <td class="text-center align-middle">{{ listItem.desc }}</td>
             <td class="text-center align-middle">
-              <button type="button" class="btn btn-info rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="getItem(listItem)">
+              <button
+                type="button"
+                class="btn btn-info rounded-0"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                @click="getItem(listItem)"
+              >
                 <i class="bi bi-pencil"></i>
-                <span class="d-none d-sm-inline-block">Edit</span>  
+                <span class="d-none d-sm-inline-block">Edit</span>
               </button>
             </td>
-            <td class="text-center align-middle" :id="index" @click="listItem.status = !listItem.status">
-              <button class="btn rounded-0" :class="{'btn-success' : listItem.status, 'btn-warning': !listItem.status}">
+            <td
+              class="text-center align-middle"
+              :id="index"
+              @click="listItem.status = !listItem.status"
+            >
+              <button
+                class="btn rounded-0"
+                :class="{
+                  'btn-success': listItem.status,
+                  'btn-warning': !listItem.status,
+                }"
+              >
                 <template v-if="listItem.status">
                   <i class="bi bi-check2"></i>
-                  <span class="d-none  d-sm-inline-block" >Completed</span>  
+                  <span class="d-none d-sm-inline-block">Completed</span>
                 </template>
                 <template v-else>
                   <i class="bi bi-patch-exclamation"></i>
-                  <span class="d-none  d-sm-inline-block">Uncompleted</span>  
+                  <span class="d-none d-sm-inline-block">Uncompleted</span>
                 </template>
               </button>
             </td>
             <td class="text-center align-middle">
-              <button class="btn btn-danger rounded-0" :id="index" @click="deleteTask(index)">
+              <button
+                class="btn btn-danger rounded-0"
+                :id="index"
+                @click="deleteTask(index)"
+              >
                 <i class="bi bi-trash"></i>
-                <span class="d-none d-sm-inline-block">Delete</span>  
+                <span class="d-none d-sm-inline-block">Delete</span>
               </button>
             </td>
           </tr>
@@ -53,31 +76,29 @@ export default {
   props: {
     list: Array,
   },
-  components:{
-      ModalEdit: () => import("../components/common/ModalEdit.vue")
+  components: {
+    ModalEdit: () => import("../components/common/ModalEdit.vue"),
   },
-  data: function(){
+  data: function () {
     return {
       editItem: null,
       editItemIndex: 0,
-      listTask: this.list
+      listTask: this.list,
     };
   },
-  methods:{
-    deleteTask(indexValue){
-      this.$emit('deleteLine', indexValue )
+  methods: {
+    deleteTask(indexValue) {
+      this.$emit("deleteLine", indexValue);
     },
-     getItem: function(item){
-       this.editItem = item;
-       this.editItemIndex = this.listTask?.indexOf(item);
+    getItem: function (item) {
+      this.editItem = item;
+      this.editItemIndex = this.listTask?.indexOf(item);
     },
-    updateDatatable: function(item){
-      console.log(item)
-			this.listTask[this.editItemIndex].title = item.title;
-      console.log(item.title)
+    updateDatatable: function (item) {
+      this.listTask[this.editItemIndex].title = item.title;
       this.listTask[this.editItemIndex].desc = item.desc;
     },
-  }
+  },
 };
 </script>
 <style scoped>

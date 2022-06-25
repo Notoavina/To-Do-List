@@ -44,7 +44,14 @@
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary" @click="sendValue()"  data-bs-dismiss="modal">Save changes</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="sendValue()"
+            data-bs-dismiss="modal"
+          >
+            Save changes
+          </button>
         </div>
       </div>
     </form>
@@ -52,8 +59,7 @@
 </template>
 
 <script>
-export default 
-{
+export default {
   name: "ModalEdit",
   props: {
     items: {},
@@ -61,23 +67,24 @@ export default
   data: function () {
     return {
       titleValue: this.items?.title,
-      descValue: this.items?.desc
+      descValue: this.items?.desc,
     };
   },
-  methods:{
-    sendValue(){
-      this.$emit('updateLine',{
+  methods: {
+    sendValue() {
+      this.$emit("updateLine", {
         title: this.titleValue,
-        desc: this.descValue
+        desc: this.descValue,
       });
-    }
+    },
   },
-   watch: {
+  watch: {
     items(newItem) {
-        this.titleValue = newItem?.title
-        this.descValue = newItem?.desc
-  }
-}}
+      this.titleValue = newItem?.title;
+      this.descValue = newItem?.desc;
+    },
+  },
+};
 </script>
 <style scoped>
 </style>

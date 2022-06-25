@@ -1,24 +1,24 @@
 <template>
   <div id="app" v-cloak>
-    <TodoList/>
+    <TodoList />
   </div>
 </template>
 
 <script>
-import TodoList from './views/TodoList.vue'
+import TodoList from "./views/TodoList.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    TodoList
-  }
-}
+    TodoList,
+  },
+};
 </script>
 
 <style>
-body{
+body {
   background-color: #344fa1;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-size: 14px;
 }
 </style>
