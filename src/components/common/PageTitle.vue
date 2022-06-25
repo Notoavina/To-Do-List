@@ -1,5 +1,5 @@
 <template>
-    <div class="my-5 text-center">
+    <div class="my-3 text-center">
        <h1 class="h1"> {{ label }}</h1>
     </div>
 </template>
